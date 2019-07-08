@@ -8,26 +8,19 @@
       <h2 class="subtitle">
         Test task for Ulmart
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
+      <accordion/>
     </div>
   </section>
 </template>
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import Accordion from '~/components/Accordion.vue'
 
 export default {
   components: {
-    AppLogo
+    AppLogo,
+    Accordion
   }
 }
 </script>
@@ -36,9 +29,11 @@ export default {
 .container {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
   text-align: center;
+  padding-top: 2%;
 }
 
 .title {
