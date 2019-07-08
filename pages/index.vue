@@ -8,7 +8,9 @@
       <h2 class="subtitle">
         Test task for Ulmart
       </h2>
-      <accordion/>
+      <accordion
+       :content="content"
+      />
     </div>
   </section>
 </template>
@@ -21,6 +23,16 @@ export default {
   components: {
     AppLogo,
     Accordion
+  },
+  data() {
+    return {
+      content: [
+        {title: "Заголовок №1"},
+        {title: "Заголовок №2"},
+        {title: "Заголовок №3"},
+        {title: "Заголовок №4"}
+      ]
+    }
   }
 }
 </script>

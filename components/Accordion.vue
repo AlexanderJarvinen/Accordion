@@ -1,11 +1,11 @@
 <template>
-  <div class="accordion" :class="{'is-open': isOpen}">
-    <div class="accordion-title" @click="switchAccordion">
-      {{title}}
-    </div>
-    <div class="accordion-body" :class="{'is-open': isOpen}" v-if="isOpen">
-      <div class="accordion-body-content">
-        <h1>Тело</h1>
+  <div class="accordion" id="accordion">
+    <div class="accordion-item"  v-for="item of content" :key="item.title">
+      <h3 class="accordion-item-head" @click="switchAccordion">
+        {{item.title}}
+      </h3>
+      <div class="accordion-item-body">
+         Кто, по-вашему, этот мощный старик? Не говорите, вы не можете этого знать. Это — гигант мысли, отец русской демократии и особа, приближенная к императору.
       </div>
     </div>
   </div>
@@ -13,77 +13,66 @@
 
 <script>
     export default {
-        name: "Accordion",
-        data() {
-          return {
-            isOpen: false,
-            title: "Header",
-            style: {
-              height: 20
-            }
-          }
-        },
+      name: "Accordion",
+      props: {
+          content: Array
+      },
         methods: {
-          switchAccordion() {
-              this.isOpen = ! this.isOpen;
-        }
+          switchAccordion: function (event) {
+               let matches = document.querySelectorAll('.accordion-item-head');
+               for(let i = 0; i < matches.length; i++) {
+                   matches[i].classList.remove('active');
+                }
+
+            event.target.classList.toggle('active');
+          }
       }
     }
 </script>
 
 <style scoped>
-  .accordion-title {
+  .accordion {
+    width: 400px;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000;
+  }
+
+  .accordion-item{
+    cursor: pointer;
+    position: relative;
+  }
+
+  .accordion-item-head{
     background-color: #526488;
     padding: 20px 0;
-    border: 2px solid #000000;
-  }
-  .accordion {
-
+    border-bottom: 2px solid #000000;
   }
 
-  .accordion-body {
-    padding: 0 16px;
-    height:0;
-    background-color: darkgray;
-    border-color: #000000;
-    border-style: solid;
-    border-width: 0 2px 2px 2px;
 
-
-  }
-
-  .accordion-body-content {
-    font-size: 1.3rem;
+  .accordion-item-body{
+    display: none;
     opacity: 0;
-    padding: 25px 0;
   }
 
-  .is-open .accordion-body-content {
-    transition: 1s; /*Скорость перехода состояния элемента*/
-    animation: show-content 2s 1; /* Указываем название анимации, её время и количество повторов*/
-    animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+  .accordion-item-head.active + .accordion-item-body {
+    display: block !important;
+    transition: 1s;
+    animation: show 2s 1;
+    animation-fill-mode: forwards;
+    border-bottom: 2px solid #000000;
   }
 
-  .is-open .accordion-body {
-    transition: 1s; /*Скорость перехода состояния элемента*/
-    animation: show-back 2s 1; /* Указываем название анимации, её время и количество повторов*/
-    animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
-  }
 
-  @keyframes show-back{
+  @keyframes show {
     0%{
       height:0;
     }
-    100% {
-      height:100px;
-    }
-  }
-
-  @keyframes show-content{
-    50% {
+    40% {
       opacity: 0;
     }
     100% {
+      height:100px;
       opacity: 1;
     }
   }
